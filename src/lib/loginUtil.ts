@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import jwkToPem from 'jwk-to-pem';
 
+// Apple
 const APPLE_ISSUER = 'https://appleid.apple.com';
 const APPLE_IDENTIFIER = [''];
 
@@ -38,4 +39,33 @@ export async function verifyAppleToken(identityToken: string) {
   if ((decoded.iss === APPLE_ISSUER && APPLE_IDENTIFIER.includes(aud)) === false) return {};
 
   return decoded;
+}
+
+// Naver
+const NAVER_CLIENT_ID = '0hS01A1i8zCO7bLy0knA';
+const NAVER_CLIENT_SECRET = process.env.NAVER_CLIENT_SECRET;
+
+export async function verifyNaverCode(code: string) {
+  // Authorization Code로 Access Token 발급
+  let res = await axios.get(`https://nid.naver.com/oauth2.0/token`, {
+    params: {
+      grant_type: 'authorization_code', // 발급
+      client_id: NAVER_CLIENT_ID,
+      client_secret: NAVER_CLIENT_SECRET,
+      code,
+      state: 'naver', // cross-site request forgery 방지를 위한 상태 토큰
+    },
+  });
+  console.log('[get naver token response]', res);
+
+  // Access Token으로 user data 조회
+  res = await axios.get('https://openapi.naver.com/v1/nid/me', {
+    headers: {
+      Authorization: `Bearer ${res.data.access_token}`,
+    },
+  });
+  console.log('[get naver user info response]', res);
+  const { email, name } = res.data.response;
+
+  return { email, name };
 }

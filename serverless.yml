@@ -12,6 +12,7 @@ provider:
   environment:
     STAGE: ${env:STAGE, "dev"}
     JWT_SECRET_KEY: ${ssm:/${self:service}/${env:STAGE, "dev"}/jwt_secret_key}
+    NAVER_CLIENT_SECRET: ${ssm:/${self:service}/${env:STAGE, "dev"}/naver_client_secret}
 
 custom:
   esbuild:
