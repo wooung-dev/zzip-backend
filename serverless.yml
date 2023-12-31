@@ -1,0 +1,24 @@
+service: wooung-backend
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-northeast-2
+  stage: dev
+  environment:
+
+custom:
+  esbuild:
+    sourcemap: true
+
+functions:
+  hello:
+    handler: src/hello/get.handler
+    events:
+      - httpApi:
+          path: /hello
+          method: get
