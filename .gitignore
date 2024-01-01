@@ -14,5 +14,8 @@ jspm_packages
 # yarn
 yarn.lock
 
+# serverless-plugin-typescript
+.build
+
 # env
 .env

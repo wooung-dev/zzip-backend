@@ -43,3 +43,9 @@ functions:
       - httpApi:
           path: /signin/kakao
           method: post
+  ocr:
+    handler: src/ocr/post.handler
+    events:
+      - httpApi:
+          path: /ocr
+          method: post
