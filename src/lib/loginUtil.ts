@@ -69,3 +69,28 @@ export async function verifyNaverCode(code: string) {
 
   return { email, name };
 }
+
+// Kakao
+const KAKAO_REST_API_KEY = '074862d63c312d53f208af79f8a48dfd';
+
+export async function verifyKakaoCode(code: string) {
+  // Authorization Code로 Access Token 발급
+  let res = await axios.post(`https://kauth.kakao.com/oauth/token`, {
+    grant_type: 'authorization_code',
+    client_id: KAKAO_REST_API_KEY,
+    redirect_uri: '',
+    code,
+  });
+  console.log('[get kakao token response]', res);
+
+  // Access Token으로 user data 조회
+  res = await axios.get('https://kapi.kakao.com/v2/user/me', {
+    headers: {
+      Authorization: `Bearer ${res.data.access_token}`,
+    },
+  });
+  console.log('[get kakao user info response]', res);
+  const { email, nickname } = res.data.kakao_account;
+
+  return { email, name: nickname };
+}

@@ -25,3 +25,21 @@ functions:
       - httpApi:
           path: /hello
           method: get
+  signin_apple:
+    handler: src/signin/apple/post.handler
+    events:
+      - httpApi:
+          path: /signin/apple
+          method: post
+  signin_naver:
+    handler: src/signin/naver/post.handler
+    events:
+      - httpApi:
+          path: /signin/naver
+          method: post
+  signin_kakao:
+    handler: src/signin/kakao/post.handler
+    events:
+      - httpApi:
+          path: /signin/kakao
+          method: post
