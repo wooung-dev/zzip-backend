@@ -32,7 +32,7 @@ export const handler = async (event: APIGatewayProxyEventV2) => {
       timestamp: 0,
       version: 'V2',
     },
-    { headers: { 'X-OCR-SECRET': 'WlBoanF0d3pSdXZ4VHZhdVVtd2dwa2ZBRWVNcmJiVHM=' } }
+    { headers: { 'X-OCR-SECRET': process.env.OCR_SECRET_KEY } }
   );
   console.log('requestWithBase64 response:', res.data.images);
 
