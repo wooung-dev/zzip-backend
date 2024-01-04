@@ -5,6 +5,14 @@ plugins:
   - serverless-plugin-typescript
 
 provider:
+  httpApi:
+    cors: true
+    authorizers:
+      zzipAuthorizer:
+        type: request
+        functionName: auth_authorizer
+        identitySource: $request.header.Authorization
+        enableSimpleResponses: true
   name: aws
   runtime: nodejs20.x
   region: ap-northeast-2
@@ -44,3 +52,11 @@ functions:
       - httpApi:
           path: /signin/kakao
           method: post
+  user_get:
+    handler: src/user/get.handler
+    events:
+      - httpApi:
+          path: /user
+          method: get
+          authorizer: zzipAuthorizer
+
