@@ -58,6 +58,13 @@ functions:
       - httpApi:
           path: /token/access
           method: get
+  token_refresh_delete:
+    handler: src/token/refresh/delete.handler
+    events:
+      - httpApi:
+          path: /token/refresh
+          method: delete
+          authorizer: zzipAuthorizer
   user_get:
     handler: src/user/get.handler
     events:
