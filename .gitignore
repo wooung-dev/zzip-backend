@@ -16,3 +16,6 @@ yarn.lock
 
 # env
 .env
+
+# test
+__tests__/env.ts
