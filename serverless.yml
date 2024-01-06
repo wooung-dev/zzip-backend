@@ -72,4 +72,10 @@ functions:
           path: /user
           method: get
           authorizer: zzipAuthorizer
-
+  user_delete:
+    handler: src/user/delete.handler
+    events:
+      - httpApi:
+          path: /user
+          method: delete
+          authorizer: zzipAuthorizer
