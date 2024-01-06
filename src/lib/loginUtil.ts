@@ -4,7 +4,7 @@ import jwkToPem from 'jwk-to-pem';
 
 // Apple
 const APPLE_ISSUER = 'https://appleid.apple.com';
-const APPLE_IDENTIFIER = [''];
+const APPLE_IDENTIFIER = ['com.wooung.ZZip'];
 
 // https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_rest_api/authenticating_users_with_sign_in_with_apple
 export async function verifyAppleToken(identityToken: string) {
