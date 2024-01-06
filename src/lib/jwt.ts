@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
 
 // openssl rand -hex 128
-const secretKey: string = process.env.jwt_secret_key || 'temp_secret_key_wooung';
+const secretKey: string = process.env.jwt_secret_key || 'temp_secret_key_zzip';
 
 export const USER_JWT_CONTENTS = ['idx', 'user_email', 'user_name', 'register_type', 'registered_date'];
 

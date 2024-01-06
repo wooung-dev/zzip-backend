@@ -1,7 +1,7 @@
 {
-  "name": "wooung-backend",
+  "name": "zzip-backend",
   "version": "1.0.0",
-  "description": "this is wooung",
+  "description": "this is saving app",
   "main": "index.ts",
   "type": "module",
   "scripts": {

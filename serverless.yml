@@ -1,4 +1,4 @@
-service: wooung-backend
+service: zzip-backend
 frameworkVersion: '3'
 
 plugins:
