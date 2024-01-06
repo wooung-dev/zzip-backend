@@ -54,6 +54,12 @@ functions:
       - httpApi:
           path: /signin/kakao
           method: post
+  signin_google:
+    handler: src/signin/google/post.handler
+    events:
+      - httpApi:
+          path: /signin/google
+          method: post
   token_access_get:
     handler: src/token/access/get.handler
     events:
