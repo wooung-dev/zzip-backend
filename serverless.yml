@@ -33,6 +33,9 @@ functions:
       - httpApi:
           path: /hello
           method: get
+  auth_authorizer:
+    handler: src/auth/authorizer.handler
+    events: []
   signin_apple:
     handler: src/signin/apple/post.handler
     events:
