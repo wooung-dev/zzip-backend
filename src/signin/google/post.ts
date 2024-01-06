@@ -8,25 +8,24 @@ import { verifyGoogleCode } from 'src/lib/loginUtil';
 const parameter = {
   type: 'object',
   properties: {
-    code: { type: 'string' }, // google에서 발급한 authorization code
+    idToken: { type: 'string' }, // google에서 발급한 id token
   },
   required: ['code'],
 } as const;
 
 export const handler = async (event: APIGatewayProxyEventV2) => {
   console.log('[event]', event);
-  const { code } = JSON.parse(event.body) as FromSchema<typeof parameter>;
+  const { idToken } = JSON.parse(event.body) as FromSchema<typeof parameter>;
   const userAgent = event.headers['user-agent']?.toLowerCase();
   let client: string;
   if (userAgent.includes('ios') || userAgent.includes('iphone')) client = 'ios';
   else if (userAgent.includes('android')) client = 'android';
 
   try {
-    // google server에서 발급한 authorization code 검증 및 payload 조회
+    // google server에서 발급한 id token 검증 및 payload 조회
     let userEmail: string, userName: string;
     try {
-      const redirectUri = `${event.headers.origin}/signin`;
-      const { email, name } = await verifyGoogleCode(code, client, redirectUri);
+      const { email, name } = await verifyGoogleCode(idToken);
       userEmail = email;
       userName = name;
     } catch (err) {

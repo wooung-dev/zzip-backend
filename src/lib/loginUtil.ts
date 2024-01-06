@@ -96,23 +96,9 @@ export async function verifyKakaoCode(code: string) {
 }
 
 // Google
-const GOOGLE_CLIENT_ID = { ios: '', android: '' };
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-
-export async function verifyGoogleCode(code: string, client: string, redirect_uri: string) {
-  // Authorization Code로 Access Token 발급
-  let res = await axios.post(`https://oauth2.googleapis.com/token`, {
-    grant_type: 'authorization_code',
-    client_id: GOOGLE_CLIENT_ID[client],
-    client_secret: GOOGLE_CLIENT_SECRET,
-    code,
-    redirect_uri,
-  });
-  console.log('[get google token response]', res);
-
+export async function verifyGoogleCode(idToken: string) {
   // ID Token으로 user data 조회
-  const idToken = res.data.id_token;
-  res = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`);
+  const res = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${idToken}`);
   console.log('[get google user info response]', res);
   const { email, name } = res.data;
 
