@@ -3,6 +3,7 @@ import mysqlUtil from '../src/lib/mysqlUtil';
 import * as authorizer from '../src/auth/authorizer';
 import { APIGatewayProxyEventV2, APIGatewayProxyEventV2WithLambdaAuthorizer } from 'aws-lambda';
 import { handler as getUser } from '../src/user/get';
+import { handler as putUser } from '../src/user/put';
 import util from 'util';
 
 describe('ZZip test', () => {
@@ -15,6 +16,11 @@ describe('ZZip test', () => {
 
   test('GET user', async () => {
     const response = await privateFunctionTest(getUser, {});
+    expect(response).toHaveProperty('statusCode', 200);
+  });
+
+  test.only('PUT user', async () => {
+    const response = await privateFunctionTest(putUser, { profileImage: true });
     expect(response).toHaveProperty('statusCode', 200);
   });
 });
