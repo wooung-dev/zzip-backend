@@ -1,7 +1,7 @@
 import knex from 'knex';
 import { getSecretObject } from './aws/secretsManagerUtil';
 
-const RDS_SECRET = 'rds!db-53cb11a3-71cb-4e2b-b707-3abaaeb96d0b';
+const RDS_SECRET = 'rds!db-b78011a9-1016-447d-9360-3ece4c1e2fcc';
 let db;
 
 async function getNewDBInstance() {
@@ -12,7 +12,7 @@ async function getNewDBInstance() {
   newDB = knex({
     client: 'mysql2',
     connection: {
-      host: 'database-wooung.cq8mid4qzlbv.ap-northeast-2.rds.amazonaws.com',
+      host: 'database-wooung.ct0mmciowtkg.ap-northeast-2.rds.amazonaws.com',
       user: secret.username,
       password: secret.password,
       port: 3306,
