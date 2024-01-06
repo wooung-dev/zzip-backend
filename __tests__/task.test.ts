@@ -14,12 +14,12 @@ describe('ZZip test', () => {
   //   expect(res).toHaveProperty('statusCode', 200);
   // });
 
-  test('GET user', async () => {
+  test.only('GET user', async () => {
     const response = await privateFunctionTest(getUser, {});
     expect(response).toHaveProperty('statusCode', 200);
   });
 
-  test.only('PUT user', async () => {
+  test('PUT user', async () => {
     const response = await privateFunctionTest(putUser, { profileImage: true });
     expect(response).toHaveProperty('statusCode', 200);
   });
