@@ -4,7 +4,6 @@ jspm_packages
 
 # Serverless directories
 .serverless
-.build
 
 # esbuild directories
 .esbuild
@@ -20,3 +19,6 @@ yarn.lock
 
 # test
 __tests__/env.ts
+
+# typescript
+build

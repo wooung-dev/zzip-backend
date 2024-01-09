@@ -2,8 +2,8 @@ import type { APIGatewayProxyEventV2 } from 'aws-lambda';
 import { FromSchema } from 'json-schema-to-ts';
 import mysqlUtil from '../../lib/mysqlUtil';
 import { generateTokens } from '../../lib/jwt';
-import { USER_REGISTER_TYPE } from 'src/lib/constants/user';
-import { verifyGoogleCode } from 'src/lib/loginUtil';
+import { USER_REGISTER_TYPE } from '../../lib/constants/user';
+import { verifyGoogleCode } from '../../lib/loginUtil';
 
 const parameter = {
   type: 'object',
@@ -16,10 +16,6 @@ const parameter = {
 export const handler = async (event: APIGatewayProxyEventV2) => {
   console.log('[event]', event);
   const { idToken } = JSON.parse(event.body) as FromSchema<typeof parameter>;
-  const userAgent = event.headers['user-agent']?.toLowerCase();
-  let client: string;
-  if (userAgent.includes('ios') || userAgent.includes('iphone')) client = 'ios';
-  else if (userAgent.includes('android')) client = 'android';
 
   try {
     // google server에서 발급한 id token 검증 및 payload 조회

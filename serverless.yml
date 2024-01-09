@@ -1,10 +1,9 @@
 service: zzip-backend
 frameworkVersion: '3'
 
-plugins:
-  - serverless-plugin-typescript
-
 provider:
+  iam:
+    role: DefaultRole
   httpApi:
     cors: true
     authorizers:
@@ -26,69 +25,105 @@ custom:
   esbuild:
     sourcemap: true
 
+resources:
+  Resources:
+    DefaultRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: ${self:service}-${env:STAGE, "dev"}-LambdaExcutionRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+          - arn:aws:iam::aws:policy/AmazonS3FullAccess
+          - arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+        Policies:
+          - PolicyName: myPolicyName
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - rds-db:connect
+                    - logs:*
+                    - athena:*
+                    - ssm:*
+                    - execute-api:*
+                    - secretsmanager:*
+                    - lambda:*
+                    - sns:*
+                    - sqs:*
+                  Resource: '*'
+
 functions:
   hello:
-    handler: src/hello/get.handler
+    handler: build/hello/get.handler
     events:
       - httpApi:
           path: /hello
           method: get
   auth_authorizer:
-    handler: src/auth/authorizer.handler
+    handler: build/auth/authorizer.handler
     events: []
-  signin_apple:
-    handler: src/signin/apple/post.handler
+  signin_apple_post:
+    handler: build/signin/apple/post.handler
     events:
       - httpApi:
           path: /signin/apple
           method: post
-  signin_naver:
-    handler: src/signin/naver/post.handler
+  signin_naver_post:
+    handler: build/signin/naver/post.handler
     events:
       - httpApi:
           path: /signin/naver
           method: post
-  signin_kakao:
-    handler: src/signin/kakao/post.handler
+  signin_kakao_post:
+    handler: build/signin/kakao/post.handler
     events:
       - httpApi:
           path: /signin/kakao
           method: post
-  signin_google:
-    handler: src/signin/google/post.handler
+  signin_google_post:
+    handler: build/signin/google/post.handler
     events:
       - httpApi:
           path: /signin/google
           method: post
   token_access_get:
-    handler: src/token/access/get.handler
+    handler: build/token/access/get.handler
     events:
       - httpApi:
           path: /token/access
           method: get
   token_refresh_delete:
-    handler: src/token/refresh/delete.handler
+    handler: build/token/refresh/delete.handler
     events:
       - httpApi:
           path: /token/refresh
           method: delete
           authorizer: zzipAuthorizer
   user_get:
-    handler: src/user/get.handler
+    handler: build/user/get.handler
     events:
       - httpApi:
           path: /user
           method: get
           authorizer: zzipAuthorizer
   user_put:
-    handler: src/user/put.handler
+    handler: build/user/put.handler
     events:
       - httpApi:
           path: /user
           method: put
           authorizer: zzipAuthorizer
   user_delete:
-    handler: src/user/delete.handler
+    handler: build/user/delete.handler
     events:
       - httpApi:
           path: /user

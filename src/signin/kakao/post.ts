@@ -2,8 +2,8 @@ import type { APIGatewayProxyEventV2 } from 'aws-lambda';
 import { FromSchema } from 'json-schema-to-ts';
 import mysqlUtil from '../../lib/mysqlUtil';
 import { generateTokens } from '../../lib/jwt';
-import { USER_REGISTER_TYPE } from 'src/lib/constants/user';
-import { verifyKakaoCode } from 'src/lib/loginUtil';
+import { USER_REGISTER_TYPE } from '../../lib/constants/user';
+import { verifyKakaoCode } from '../../lib/loginUtil';
 
 const parameter = {
   type: 'object',
