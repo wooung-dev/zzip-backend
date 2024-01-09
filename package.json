@@ -3,14 +3,16 @@
   "version": "1.0.0",
   "description": "this is saving app",
   "main": "index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "deploy": "rm -r build || true && tsc --diagnostics && serverless deploy --aws-profile zzip"
   },
   "engines": {
     "node": ">=20.10.0"
   },
   "dependencies": {
+    "axios": "^1.6.5",
     "dayjs": "^1.11.10",
     "jsonwebtoken": "^9.0.2",
     "jwk-to-pem": "^2.0.5",

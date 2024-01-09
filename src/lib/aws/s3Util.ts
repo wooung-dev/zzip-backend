@@ -26,10 +26,23 @@ export const getPresignedUrl = async (Key: string) => {
   return url;
 };
 
+// object head(metadata 등) 정보 조회 or object 존재 여부 확인
 export const getHeadObject = async (Key: string) => {
-  const command = new HeadObjectCommand({ Bucket, Key });
-  const res = await client.send(command);
-  console.log('[getHeadObject]', res);
-  
+  let res;
+
+  try {
+    const command = new HeadObjectCommand({ Bucket, Key });
+    res = await client.send(command);
+    console.log('[getHeadObject]', res);
+  } catch (error) {
+    if (error.name === 'NotFound') {
+      console.log('Object does not exist.');
+      return { error: 'NotFound' };
+    } else {
+      console.error('Error:', error);
+      return { error };
+    }
+  }
+
   return res;
 };

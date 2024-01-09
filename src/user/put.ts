@@ -1,8 +1,8 @@
 import { APIGatewayProxyEventV2WithLambdaAuthorizer } from 'aws-lambda';
-import { USER_JWT_CONTENTS } from '@lib/jwt';
-import mysqlUtil from '@lib/mysqlUtil';
+import { USER_JWT_CONTENTS } from '../lib/jwt';
+import mysqlUtil from '../lib/mysqlUtil';
 import { FromSchema } from 'json-schema-to-ts';
-import { getPresignedPostUrl } from '@lib/aws/s3Util';
+import { getPresignedPostUrl } from '../lib/aws/s3Util';
 
 const parameter = {
   type: 'object',

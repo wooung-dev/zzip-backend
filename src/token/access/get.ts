@@ -1,6 +1,6 @@
 import { APIGatewayProxyEventV2 } from 'aws-lambda';
-import { generateUserAccessToken, verifyJwtKey } from '@lib/jwt';
-import mysqlUtil from '@lib/mysqlUtil';
+import { generateUserAccessToken, verifyJwtKey } from '../../lib/jwt';
+import mysqlUtil from '../../lib/mysqlUtil';
 import { FromSchema } from 'json-schema-to-ts';
 
 const parameter = {

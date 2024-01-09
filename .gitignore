@@ -19,3 +19,6 @@ yarn.lock
 
 # test
 __tests__/env.ts
+
+# typescript
+build

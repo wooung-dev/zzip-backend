@@ -13,6 +13,7 @@
     "sourceMap": true,
     "target": "ES2020",
     "outDir": "build",
+    "module": "CommonJS",
     "esModuleInterop": true, 
   },
   "include": ["src/**/*.ts"],
