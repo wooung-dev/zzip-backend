@@ -1,7 +1,7 @@
 import { APIGatewayProxyEventV2WithLambdaAuthorizer } from 'aws-lambda';
-import { USER_JWT_CONTENTS } from '@lib/jwt';
-import mysqlUtil from '@lib/mysqlUtil';
-import { getHeadObject, getPresignedUrl } from '@lib/aws/s3Util';
+import { USER_JWT_CONTENTS } from '../lib/jwt';
+import mysqlUtil from '../lib/mysqlUtil';
+import { getHeadObject, getPresignedUrl } from '../lib/aws/s3Util';
 
 export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<{ [key: string]: any }>) => {
   console.log('[event]', event);
