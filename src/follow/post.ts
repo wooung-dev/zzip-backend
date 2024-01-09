@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventV2WithLambdaAuthorizer } from "aws-lambda";
-import mysqlUtil from "@lib/mysqlUtil";
+import mysqlUtil from "../lib/mysqlUtil";
 import { FromSchema } from "json-schema-to-ts";
 
 const parameter = {
@@ -17,5 +17,5 @@ export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<
 
   await mysqlUtil.create("tb_follow", { follower_idx: userIdx, followed_idx: followedUserIdx });
 
-  return { statusCode: 200, body: { followedUser: followedUserIdx } };
+  return { statusCode: 200, body: JSON.stringify({ followedUser: followedUserIdx }) };
 };

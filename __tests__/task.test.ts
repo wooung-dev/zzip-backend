@@ -13,18 +13,17 @@ describe("ZZip test", () => {
   //   expect(res).toHaveProperty('statusCode', 200);
   // });
 
-  test.only("GET user", async () => {
+  test("GET user", async () => {
     const response = await privateFunctionTest(getUser, {});
     expect(response).toHaveProperty("statusCode", 200);
   });
-
   test("PUT user", async () => {
     const response = await privateFunctionTest(putUser, { profileImage: true });
     expect(response).toHaveProperty("statusCode", 200);
   });
 
   test("POST follow", async () => {
-    const response = await privateFunctionTest(postFollow, { followedUserIdx: 2 });
+    const response = await privateFunctionTest(postFollow, { followedUserIdx: 3 });
     expect(response).toHaveProperty("statusCode", 200);
   });
   test("GET follow", async () => {
@@ -32,7 +31,8 @@ describe("ZZip test", () => {
     expect(response).toHaveProperty("statusCode", 200);
   });
   test("DELETE follow", async () => {
-    const response = await privateFunctionTest(deleteFollow, { followedUserIdx: 2 });
+    const response = await privateFunctionTest(deleteFollow, { followedUserIdx: 3 });
     expect(response).toHaveProperty("statusCode", 200);
   });
+  
 });
