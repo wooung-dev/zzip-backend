@@ -129,3 +129,24 @@ functions:
           path: /user
           method: delete
           authorizer: zzipAuthorizer
+  follow_post:
+    handler: build/follow/post.handler
+    events:
+      - httpApi:
+          path: /follow
+          method: post
+          authorizer: zzipAuthorizer
+  follow_delete:
+    handler: build/follow/delete.handler
+    events:
+      - httpApi:
+          path: /follow
+          method: delete
+          authorizer: zzipAuthorizer
+  follow_get:
+    handler: build/follow/get.handler
+    events:
+      - httpApi:
+          path: /follow
+          method: get
+          authorizer: zzipAuthorizer

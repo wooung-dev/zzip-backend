@@ -3,7 +3,7 @@ import { handler as putUser } from "../src/user/put";
 import { handler as postFollow } from "../src/follow/post";
 import { handler as getFollow } from "../src/follow/get";
 import { handler as deleteFollow } from "../src/follow/delete";
-import { privateFunctionTest } from './testUtil';
+import { privateFunctionTest } from "./testUtil";
 
 describe("ZZip test", () => {
   // test('GET test', async () => {
@@ -34,5 +34,4 @@ describe("ZZip test", () => {
     const response = await privateFunctionTest(deleteFollow, { followedUserIdx: 3 });
     expect(response).toHaveProperty("statusCode", 200);
   });
-  
 });
