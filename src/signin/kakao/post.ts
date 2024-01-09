@@ -2,13 +2,13 @@ import type { APIGatewayProxyEventV2 } from 'aws-lambda';
 import { FromSchema } from 'json-schema-to-ts';
 import mysqlUtil from '../../lib/mysqlUtil';
 import { generateTokens } from '../../lib/jwt';
-import { USER_REGISTER_TYPE } from 'src/lib/constants/user';
-import { verifyKakaoCode } from 'src/lib/loginUtil';
+import { USER_REGISTER_TYPE } from '../../lib/constants/user';
+import { verifyKakaoCode } from '../../lib/loginUtil';
 
 const parameter = {
   type: 'object',
   properties: {
-    code: { type: 'string' }, // naver에서 발급한 authorization code
+    code: { type: 'string' }, // kakao에서 발급한 authorization code
   },
   required: ['code'],
 } as const;
@@ -18,7 +18,7 @@ export const handler = async (event: APIGatewayProxyEventV2) => {
   const { code } = JSON.parse(event.body) as FromSchema<typeof parameter>;
 
   try {
-    // naver server에서 발급한 authorization code 검증 및 payload 조회
+    // kakao server에서 발급한 authorization code 검증 및 payload 조회
     let userEmail: string, fullName: string;
     try {
       const { email, name } = await verifyKakaoCode(code);
