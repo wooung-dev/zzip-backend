@@ -1,9 +1,12 @@
-import { handler as getUser } from "../src/user/get";
-import { handler as putUser } from "../src/user/put";
+import { handler as getUser } from '../src/user/get';
+import { handler as putUser } from '../src/user/put';
 import { handler as postFollow } from "../src/follow/post";
 import { handler as getFollow } from "../src/follow/get";
 import { handler as deleteFollow } from "../src/follow/delete";
-import { privateFunctionTest } from "./testUtil";
+import { handler as postPostCalendar } from '../src/calendar/post/post';
+import { handler as getPostCalendar } from '../src/calendar/post/get';
+import { handler as getCalendar } from '../src/calendar/get';
+import { privateFunctionTest } from './testUtil';
 
 describe("ZZip test", () => {
   // test('GET test', async () => {
@@ -13,7 +16,7 @@ describe("ZZip test", () => {
   //   expect(res).toHaveProperty('statusCode', 200);
   // });
 
-  test("GET user", async () => {
+  test('GET user', async () => {
     const response = await privateFunctionTest(getUser, {});
     expect(response).toHaveProperty("statusCode", 200);
   });
@@ -33,5 +36,25 @@ describe("ZZip test", () => {
   test("DELETE follow", async () => {
     const response = await privateFunctionTest(deleteFollow, { followedUserIdx: 3 });
     expect(response).toHaveProperty("statusCode", 200);
+  });
+
+  test('POST calendar post', async () => {
+    const response = await privateFunctionTest(postPostCalendar, {
+      useLocation: '깐부치킨',
+      price: 39000,
+      reason: '치팅데이',
+      date: '2024-01-09',
+    });
+    expect(response).toHaveProperty('statusCode', 200);
+  });
+
+  test('GET calendar post', async () => {
+    const response = await privateFunctionTest(getPostCalendar, { uid: 'abcd' });
+    expect(response).toHaveProperty('statusCode', 200);
+  });
+
+  test.only('GET calendar', async () => {
+    const response = await privateFunctionTest(getCalendar, { year: 2024, month: 1 });
+    expect(response).toHaveProperty('statusCode', 200);
   });
 });

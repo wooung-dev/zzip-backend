@@ -150,3 +150,38 @@ functions:
           path: /follow
           method: get
           authorizer: zzipAuthorizer
+  calendar_post_post:
+    handler: build/calendar/post/post.handler
+    events:
+      - httpApi:
+          path: /calendar/post
+          method: post
+          authorizer: zzipAuthorizer
+  calendar_post_get:
+    handler: build/calendar/post/get.handler
+    events:
+      - httpApi:
+          path: /calendar/post
+          method: get
+          authorizer: zzipAuthorizer
+  calendar_post_put:
+    handler: build/calendar/post/put.handler
+    events:
+      - httpApi:
+          path: /calendar/post
+          method: put
+          authorizer: zzipAuthorizer
+  calendar_post_delete:
+    handler: build/calendar/post/delete.handler
+    events:
+      - httpApi:
+          path: /calendar/post
+          method: delete
+          authorizer: zzipAuthorizer
+  calendar_get:
+    handler: build/calendar/get.handler
+    events:
+      - httpApi:
+          path: /calendar
+          method: get
+          authorizer: zzipAuthorizer
