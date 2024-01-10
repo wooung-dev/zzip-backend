@@ -157,3 +157,10 @@ functions:
           path: /calendar/post
           method: delete
           authorizer: zzipAuthorizer
+  calendar_get:
+    handler: build/calendar/get.handler
+    events:
+      - httpApi:
+          path: /calendar
+          method: get
+          authorizer: zzipAuthorizer

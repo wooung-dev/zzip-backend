@@ -2,6 +2,7 @@ import { handler as getUser } from '../src/user/get';
 import { handler as putUser } from '../src/user/put';
 import { handler as postPostCalendar } from '../src/calendar/post/post';
 import { handler as getPostCalendar } from '../src/calendar/post/get';
+import { handler as getCalendar } from '../src/calendar/get';
 import { privateFunctionTest } from './testUtil';
 
 describe('ZZip test', () => {
@@ -32,8 +33,13 @@ describe('ZZip test', () => {
     expect(response).toHaveProperty('statusCode', 200);
   });
 
-  test.only('GET calendar post', async () => {
+  test('GET calendar post', async () => {
     const response = await privateFunctionTest(getPostCalendar, { uid: 'abcd' });
+    expect(response).toHaveProperty('statusCode', 200);
+  });
+
+  test.only('GET calendar', async () => {
+    const response = await privateFunctionTest(getCalendar, { year: 2024, month: 1 });
     expect(response).toHaveProperty('statusCode', 200);
   });
 });

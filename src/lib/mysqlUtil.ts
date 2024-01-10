@@ -48,7 +48,7 @@ async function raw(query) {
   let queryPromise = db.raw(query);
   const result = await safeQueryPromise(queryPromise);
   console.log(`mysql raw result: `, result);
-  return result;
+  return result[0];
 }
 
 async function create(table: string, createObject: object): Promise<number> {
