@@ -6,7 +6,7 @@ const parameter = {
   type: 'object',
   properties: {
     uid: { type: 'string' },
-    useLocation: { type: 'string' },
+    toWhat: { type: 'string' },
     price: { type: 'integer' },
     reason: { type: 'string' },
     date: { type: 'string' }, // YYYY-MM-DD
@@ -16,7 +16,7 @@ const parameter = {
 
 export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<{ [key: string]: any }>) => {
   console.log('[event]', event);
-  const { uid, useLocation, price, reason, date } = JSON.parse(event.body) as FromSchema<typeof parameter>;
+  const { uid, toWhat, price, reason, date } = JSON.parse(event.body) as FromSchema<typeof parameter>;
   const userIdx = event.requestContext.authorizer.lambda.idx;
 
   // 자신의 포스트가 아닌 경우 오류 반환
@@ -25,7 +25,7 @@ export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<
 
   // 업데이트 요청한 항목들만 object화
   const updateObject: { [key: string]: any } = {};
-  typeof useLocation === 'string' && (updateObject.use_location = useLocation);
+  typeof toWhat === 'string' && (updateObject.to_what = toWhat);
   typeof price === 'number' && (updateObject.price = price);
   typeof reason === 'string' && (updateObject.reason = reason);
   typeof date === 'string' && (updateObject.date = date);
