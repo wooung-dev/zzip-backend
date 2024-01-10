@@ -15,7 +15,7 @@ export async function privateFunctionTest(testFunction, parameters: { [key: stri
   const userAccessToken = await localLogin();
   const event = await createPrivateLambdaEvent(parameters, userAccessToken);
   const response = await testFunction(event);
-  console.log(util.inspect(JSON.parse(response.body), { depth: null }));
+  console.log(`test response`, util.inspect(JSON.parse(response.body), { depth: null }));
   return response;
 }
 
