@@ -1,6 +1,7 @@
 import { APIGatewayProxyEventV2WithLambdaAuthorizer } from 'aws-lambda';
 import { FromSchema } from 'json-schema-to-ts';
 import mysqlUtil from '../lib/mysqlUtil';
+import { updateFriendScore } from '../lib/friendScore';
 
 const parameter = {
   type: 'object',
@@ -15,16 +16,23 @@ const parameter = {
 export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<{ [key: string]: any }>) => {
   console.log('[event]', event);
   const { userEmail, year, month } = JSON.parse(event.body) as FromSchema<typeof parameter>;
+  const userIdx = event.requestContext.authorizer.lambda.idx;
 
   // 조회할 유저 선택
-  let userIdx: number;
-  if (userEmail) userIdx = (await mysqlUtil.getOne('tb_user', ['idx'], { user_email: userEmail })).idx;
-  else userIdx = event.requestContext.authorizer.lambda.idx;
+  // 다른 유저
+  let calendarOwnerIdx: number;
+  if (userEmail) {
+    calendarOwnerIdx = (await mysqlUtil.getOne('tb_user', ['idx'], { user_email: userEmail })).idx;
+    // 다른 유저 캘린더 조회시 친밀도 업데이트
+    await updateFriendScore(userIdx, calendarOwnerIdx);
+  }
+  // 자신
+  else calendarOwnerIdx = userIdx;
 
   // 캘린더 포스트 조회
   const calendarPostArray = await mysqlUtil.raw(
     `SELECT * FROM tb_calendar_post 
-        WHERE user_idx = '${userIdx}' 
+        WHERE user_idx = '${calendarOwnerIdx}' 
         AND YEAR(date) = '${year}' 
         AND MONTH(date) = '${month}'`
   );
