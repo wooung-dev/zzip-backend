@@ -13,7 +13,7 @@ const parameter = {
 
 export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<{ [key: string]: any }>) => {
   console.log('[event]', event);
-  const { uid } = JSON.parse(event.body) as FromSchema<typeof parameter>;
+  const { uid } = event.queryStringParameters as FromSchema<typeof parameter>;
   const userIdx = event.requestContext.authorizer.lambda.idx;
 
   const post = await mysqlUtil.getOne('tb_calendar_post', [], { uid });

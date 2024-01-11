@@ -7,15 +7,15 @@ const parameter = {
   type: 'object',
   properties: {
     userEmail: { type: 'string' },
-    year: { type: 'integer' },
-    month: { type: 'integer' },
+    year: { type: 'number' },
+    month: { type: 'number' },
   },
   required: ['year', 'month'],
 } as const;
 
 export const handler = async (event: APIGatewayProxyEventV2WithLambdaAuthorizer<{ [key: string]: any }>) => {
   console.log('[event]', event);
-  const { userEmail, year, month } = JSON.parse(event.body) as FromSchema<typeof parameter>;
+  const { userEmail, year, month } = event.queryStringParameters as FromSchema<typeof parameter>;
   const userIdx = event.requestContext.authorizer.lambda.idx;
 
   // 조회할 유저 선택
