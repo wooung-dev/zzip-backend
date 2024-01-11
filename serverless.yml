@@ -20,6 +20,7 @@ provider:
     STAGE: ${env:STAGE, "dev"}
     JWT_SECRET_KEY: ${ssm:/${self:service}/${env:STAGE, "dev"}/jwt_secret_key}
     NAVER_CLIENT_SECRET: ${ssm:/${self:service}/${env:STAGE, "dev"}/naver_client_secret}
+    OCR_SECRET_KEY: ${ssm:/${self:service}/${env:STAGE, "dev"}/ocr_secret_key}
 
 custom:
   esbuild:
@@ -162,6 +163,13 @@ functions:
     events:
       - httpApi:
           path: /calendar/post
+          method: get
+          authorizer: zzipAuthorizer
+  calendar_post_ocr_get:
+    handler: build/calendar/post/ocr/get.handler
+    events:
+      - httpApi:
+          path: /calendar/post/ocr
           method: get
           authorizer: zzipAuthorizer
   calendar_post_put:

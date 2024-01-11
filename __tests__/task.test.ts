@@ -1,14 +1,15 @@
 import { handler as getUser } from '../src/user/get';
 import { handler as putUser } from '../src/user/put';
-import { handler as postFollow } from "../src/follow/post";
-import { handler as getFollow } from "../src/follow/get";
-import { handler as deleteFollow } from "../src/follow/delete";
+import { handler as postFollow } from '../src/follow/post';
+import { handler as getFollow } from '../src/follow/get';
+import { handler as deleteFollow } from '../src/follow/delete';
 import { handler as postPostCalendar } from '../src/calendar/post/post';
 import { handler as getPostCalendar } from '../src/calendar/post/get';
 import { handler as getCalendar } from '../src/calendar/get';
+import { handler as getCalendarPostOCR } from '../src/calendar/post/ocr/get';
 import { privateFunctionTest } from './testUtil';
 
-describe("ZZip test", () => {
+describe('ZZip test', () => {
   // test('GET test', async () => {
   //   const parameters = { name: 's', age: 12 };
   //   const res = await getTest(parameters, createPublicLambdaEvent(parameters));
@@ -18,24 +19,24 @@ describe("ZZip test", () => {
 
   test('GET user', async () => {
     const response = await privateFunctionTest(getUser, {});
-    expect(response).toHaveProperty("statusCode", 200);
+    expect(response).toHaveProperty('statusCode', 200);
   });
-  test("PUT user", async () => {
+  test('PUT user', async () => {
     const response = await privateFunctionTest(putUser, { profileImage: true });
-    expect(response).toHaveProperty("statusCode", 200);
+    expect(response).toHaveProperty('statusCode', 200);
   });
 
-  test("POST follow", async () => {
+  test('POST follow', async () => {
     const response = await privateFunctionTest(postFollow, { followedUserIdx: 3 });
-    expect(response).toHaveProperty("statusCode", 200);
+    expect(response).toHaveProperty('statusCode', 200);
   });
-  test("GET follow", async () => {
+  test('GET follow', async () => {
     const response = await privateFunctionTest(getFollow, {});
-    expect(response).toHaveProperty("statusCode", 200);
+    expect(response).toHaveProperty('statusCode', 200);
   });
-  test("DELETE follow", async () => {
+  test('DELETE follow', async () => {
     const response = await privateFunctionTest(deleteFollow, { followedUserIdx: 3 });
-    expect(response).toHaveProperty("statusCode", 200);
+    expect(response).toHaveProperty('statusCode', 200);
   });
 
   test('POST calendar post', async () => {
@@ -53,8 +54,17 @@ describe("ZZip test", () => {
     expect(response).toHaveProperty('statusCode', 200);
   });
 
-  test.only('GET calendar', async () => {
+  test('GET calendar', async () => {
     const response = await privateFunctionTest(getCalendar, { year: 2024, month: 1 });
+    expect(response).toHaveProperty('statusCode', 200);
+  });
+
+  test.only('GET calendar post OCR', async () => {
+    const response = await privateFunctionTest(getCalendarPostOCR, {
+      image: 'base64 encoded image를 넣어주세요',
+      format: 'jpeg',
+      bank: 'kakaobank',
+    });
     expect(response).toHaveProperty('statusCode', 200);
   });
 });
