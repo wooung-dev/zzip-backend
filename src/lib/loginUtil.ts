@@ -75,12 +75,16 @@ const KAKAO_REST_API_KEY = '074862d63c312d53f208af79f8a48dfd';
 
 export async function verifyKakaoCode(code: string) {
   // Authorization Code로 Access Token 발급
-  let res = await axios.post(`https://kauth.kakao.com/oauth/token`, {
-    grant_type: 'authorization_code',
-    client_id: KAKAO_REST_API_KEY,
-    redirect_uri: '',
-    code,
-  });
+  let res = await axios.post(
+    `https://kauth.kakao.com/oauth/token`,
+    {
+      grant_type: 'authorization_code',
+      client_id: KAKAO_REST_API_KEY,
+      redirect_uri: '',
+      code,
+    },
+    { headers: { 'Content-type': 'application/x-www-form-urlencoded;charset=utf-8' } }
+  );
   console.log('[get kakao token response]', res);
 
   // Access Token으로 user data 조회
